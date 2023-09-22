@@ -159,7 +159,7 @@ namespace ConnectionDB
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "UPDATE tbl_countries SET name = @name, regions_id = @regionsId, WHERE @id = id";
+            command.CommandText = "UPDATE tbl_countries SET name = @name, regions_id = @regionsId WHERE id =@id;";
 
             try
             {

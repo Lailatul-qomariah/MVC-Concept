@@ -135,7 +135,7 @@ namespace ConnectionDB
                 command.Parameters.Add(new SqlParameter("@street_address", locations.StreetAddress));
                 command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
                 command.Parameters.Add(new SqlParameter("@city", locations.City));
-                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@state_province", locations.StateProvince));
                 command.Parameters.Add(new SqlParameter("@country_id", locations.CountryId));
 
                 connection.Open();
@@ -177,8 +177,9 @@ namespace ConnectionDB
                 command.Parameters.Add(new SqlParameter("@street_address", locations.StreetAddress));
                 command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
                 command.Parameters.Add(new SqlParameter("@city", locations.City));
-                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@state_province", locations.StateProvince));
                 command.Parameters.Add(new SqlParameter("@country_id", locations.CountryId));
+
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();

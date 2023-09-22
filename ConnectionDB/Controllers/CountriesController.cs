@@ -58,7 +58,9 @@ namespace ConnectionDB.Controllers
             var result = _countries.Insert(new Countries
             {
                 Id = countries.Id,
-                Name = countries.Name
+                Name = countries.Name,
+                RegionsId = countries.RegionsId
+                
             });
 
             _countriesView.Transaction(result);
