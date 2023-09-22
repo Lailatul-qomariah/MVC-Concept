@@ -20,7 +20,7 @@ public class RegionsController
 
     }
 
-    public void GetAllController()
+    public void GetAll()
     {
         var result = _regions.GetAll();
         if (!result.Any()) 
@@ -42,7 +42,7 @@ public class RegionsController
         {
             try
             {
-                 regions = _regionsView.InsertInput();
+                 regions = _regionsView.InsertUpdate();
 
                 if (string.IsNullOrEmpty(regions.Name))
                 {
@@ -72,7 +72,7 @@ public class RegionsController
         {
             try
             {
-                regions = _regionsView.Update();
+                regions = _regionsView.InsertUpdate();
                 if (string.IsNullOrEmpty(regions.Name))
                 {
                     Console.WriteLine("Region name cannot be empty");
@@ -95,9 +95,10 @@ public class RegionsController
 
         regions = _regionsView.Delete();
         var result = _regions.Delete(regions.Id);
-        if (!result.Any())
+        if (result.Any())
         {
-            Console.WriteLine("Data Not Found");
+            _regionsView.Transaction(result);
+
         }
         else
         {

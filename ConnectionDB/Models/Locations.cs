@@ -121,22 +121,22 @@ namespace ConnectionDB
 
         }
 
-        public string Insert(int id, string streetAddress, string postalCode, string city, string stateProvince, string countryId )
+        public string Insert(Locations locations)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "INSERT INTO tbl_regions VALUES (@id, @street_address, @postal_code, @city, @state_province, @country_id);";
+            command.CommandText = "INSERT INTO tbl_locations VALUES (@id, @street_address, @postal_code, @city, @state_province, @country_id);";
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@street_address", streetAddress));
-                command.Parameters.Add(new SqlParameter("@postal_code", postalCode));
-                command.Parameters.Add(new SqlParameter("@city", city));
-                command.Parameters.Add(new SqlParameter("@postal_code", stateProvince));
-                command.Parameters.Add(new SqlParameter("@country_id", countryId));
+                command.Parameters.Add(new SqlParameter("@id", locations.Id));
+                command.Parameters.Add(new SqlParameter("@street_address", locations.StreetAddress));
+                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@city", locations.City));
+                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@country_id", locations.CountryId));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();
@@ -163,22 +163,22 @@ namespace ConnectionDB
             }
         }
 
-        public string Update(int id, string streetAddress, string postalCode, string city, string stateProvince, string countryId)
+        public string Update(Locations locations)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "UPDATE tbl_locations SET streetAddress = @street_address, postalCode = @postal_code, city = @city, stateProvince = @state_province, countryId = @country_id  WHERE id =@id";
+            command.CommandText = "UPDATE tbl_locations SET streetAddress = @street_address, postal_code = @postal_code, city = @city, state_province = @state_province, country_id = @country_id  WHERE id =@id";
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@street_address", streetAddress));
-                command.Parameters.Add(new SqlParameter("@postal_code", postalCode));
-                command.Parameters.Add(new SqlParameter("@city", city));
-                command.Parameters.Add(new SqlParameter("@postal_code", stateProvince));
-                command.Parameters.Add(new SqlParameter("@country_id", countryId));
+                command.Parameters.Add(new SqlParameter("@id", locations.Id));
+                command.Parameters.Add(new SqlParameter("@street_address", locations.StreetAddress));
+                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@city", locations.City));
+                command.Parameters.Add(new SqlParameter("@postal_code", locations.PostalCode));
+                command.Parameters.Add(new SqlParameter("@country_id", locations.CountryId));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();

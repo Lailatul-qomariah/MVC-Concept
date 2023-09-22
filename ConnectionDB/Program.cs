@@ -19,8 +19,8 @@ class Program
         while (choice)
         {
             Console.WriteLine("1. Regions CRUD");
-            Console.WriteLine("2. List all countries");
-            Console.WriteLine("3. List all locations");
+            Console.WriteLine("2. Countries CRUD");
+            Console.WriteLine("3. Locations CRUD");
             Console.WriteLine("4. List all Job");
             Console.WriteLine("5. List all Job History");
             Console.WriteLine("6. List all Employees");
@@ -43,23 +43,13 @@ class Program
         switch (input)
         {
             case "1":
-                //var manageDatabase = new ManageDatabase();
-                //var regions = manageDatabase.GetAll("tbl_regions");
-                var manageDatabase = new Regions();
-                var regions = manageDatabase.GetAll();
                 RegionsMenu();
-
-
                 break;
             case "2":
-                var country = new Countries();
-                var countries = country.GetAll();
-                //GeneralMenu.List(countries, "countries");
+                CountriesMenu();
                 break;
             case "3":
-                var location = new Locations();
-                var locations = location.GetAll();
-               // GeneralMenu.List(locations, "locations");
+                LocationsMenu();
                 break;
 
             case "4":
@@ -124,7 +114,7 @@ class Program
             switch (input2)
             {
                 case "1":
-                    regionController.GetAllController();
+                    regionController.GetAll();
                     break;
                 case "2":
                     regionController.Insert();
@@ -145,6 +135,88 @@ class Program
         }
     }
 
+    public static void CountriesMenu()
+    {
+        var countries = new Countries();
+        var countriesView = new CountriesView();
+
+        var countriesController = new CountriesController(countries, countriesView);
+
+        var isLoop = true;
+        while (isLoop)
+        {
+            Console.WriteLine("1. List all countries");
+            Console.WriteLine("2. Insert new countries");
+            Console.WriteLine("3. Update countries");
+            Console.WriteLine("4. Delete countries");
+            Console.WriteLine("10. Back");
+            Console.Write("Enter your choice: ");
+            var input2 = Console.ReadLine();
+            switch (input2)
+            {
+                case "1":
+                    countriesController.GetAll();
+                    break;
+                case "2":
+                    countriesController.Insert();
+                    break;
+                case "3":
+                    countriesController.Update();
+                    break;
+                case "4":
+                    countriesController.Delete();
+                    break;
+                case "10":
+                    isLoop = false;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice");
+                    break;
+            }
+        }
+    }
+
+
+    public static void LocationsMenu()
+    {
+        var locations = new Locations();
+        var locationView = new LocationsView();
+
+        var locationsController = new LocationsController(locations, locationView);
+
+        var isLoop = true;
+        while (isLoop)
+        {
+            Console.WriteLine("1. List all countries");
+            Console.WriteLine("2. Insert new countries");
+            Console.WriteLine("3. Update countries");
+            Console.WriteLine("4. Delete countries");
+            Console.WriteLine("10. Back");
+            Console.Write("Enter your choice: ");
+            var input2 = Console.ReadLine();
+            switch (input2)
+            {
+                case "1":
+                    locationsController.GetAll();
+                    break;
+                case "2":
+                    locationsController.Insert();
+                    break;
+                case "3":
+                    locationsController.Update();
+                    break;
+                case "4":
+                    locationsController.Delete();
+                    break;
+                case "10":
+                    isLoop = false;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice");
+                    break;
+            }
+        }
+    }
 
 
 }

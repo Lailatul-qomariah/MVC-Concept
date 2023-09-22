@@ -114,18 +114,19 @@ namespace ConnectionDB
 
         }
 
-        public string Insert(int id, string name)
+        public string Insert(Countries countries)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "INSERT INTO tbl_countries VALUES (@id, @name);";
+            command.CommandText = "INSERT INTO tbl_countries VALUES (@id, @name, @regions_id);";
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@name", name));
+                command.Parameters.Add(new SqlParameter("@id", countries.Id));
+                command.Parameters.Add(new SqlParameter("@name", countries.Name));
+                command.Parameters.Add(new SqlParameter("@regions_id", countries.RegionsId));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();
@@ -152,18 +153,19 @@ namespace ConnectionDB
             }
         }
 
-        public string Update(int id, string name)
+        public string Update(Countries countries)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "UPDATE tbl_countries SET name = @name WHERE @id = id";
+            command.CommandText = "UPDATE tbl_countries SET name = @name, regions_id = @regionsId, WHERE @id = id";
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@name", name));
+                command.Parameters.Add(new SqlParameter("@id", countries.Id));
+                command.Parameters.Add(new SqlParameter("@name", countries.Name));
+                command.Parameters.Add(new SqlParameter("@regionsId", countries.RegionsId));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();
