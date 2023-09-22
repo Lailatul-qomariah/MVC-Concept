@@ -41,7 +41,7 @@ namespace ConnectionDB
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "SELECT * FROM tbl_countries";
+            command.CommandText = "SELECT * FROM tbl_regions";
 
             try
             {
@@ -124,7 +124,7 @@ namespace ConnectionDB
 
         }
 
-        public string Insert(int id, string name)
+        public string Insert(Regions region)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
@@ -134,8 +134,8 @@ namespace ConnectionDB
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@name", name));
+                command.Parameters.Add(new SqlParameter("@id", region.Id));
+                command.Parameters.Add(new SqlParameter("@name", region.Name));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();
@@ -162,18 +162,18 @@ namespace ConnectionDB
             }
         }
 
-        public string Update(int id, string name)
+        public string Update(Regions region)
         {
             using var connection = Connections.GetConnection();
             using var command = Connections.GetCommand();
 
             command.Connection = connection;
-            command.CommandText = "UPDATE tbl_regions SET name = @name WHERE @id = id";
+            command.CommandText = "UPDATE tbl_regions SET name = @name WHERE id = @id";
 
             try
             {
-                command.Parameters.Add(new SqlParameter("@id", id));
-                command.Parameters.Add(new SqlParameter("@name", name));
+                command.Parameters.Add(new SqlParameter("@id", region.Id));
+                command.Parameters.Add(new SqlParameter("@name", region.Name));
 
                 connection.Open();
                 using var transaction = connection.BeginTransaction();

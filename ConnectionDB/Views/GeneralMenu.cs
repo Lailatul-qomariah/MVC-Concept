@@ -8,7 +8,7 @@ namespace ConnectionDB
 {
     public  class GeneralMenu
     {
-        public static void List<T>(List<T> items, string title)
+        public void List<T>(List<T> items, string title)
         {
             Console.WriteLine($"List of {title}");
             Console.WriteLine("---------------");
@@ -19,18 +19,24 @@ namespace ConnectionDB
 
         }
 
-        //tahap pengembangan, method generic untuk keperluan CRUD
-        public static void LooopData(List<Dictionary<string, object>> data, string tableName)
+        public void Single<T>(T item, string title)
         {
-            data = JoinTables.manageDatabase.GetAll(tableName);
+            Console.WriteLine($"List of {title}");
+            Console.WriteLine("---------------");
+            Console.WriteLine(item.ToString());
+        }
 
-            foreach (var row in data)
+        public void Transaction(string result)
+        {
+            int.TryParse(result, out int res);
+            if (res > 0)
             {
-                foreach (var keyValuePair in row)
-                {
-                    Console.WriteLine($"{keyValuePair.Key}: {keyValuePair.Value}");
-                }
-                Console.WriteLine();
+                Console.WriteLine("Transaction completed successfully");
+            }
+            else
+            {
+                Console.WriteLine("Transaction failed");
+                Console.WriteLine(result);
             }
         }
 
